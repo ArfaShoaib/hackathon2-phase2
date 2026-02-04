@@ -38,9 +38,9 @@ export function UserProvider({ children }: UserProviderProps) {
         if (session?.user) {
           // Map the auth session user to our User type
           const userData: User = {
-            id: session.user.id || '',
+            id: String(session.user.id || ''),
             email: session.user.email || '',
-            createdAt: session.user.createdAt ? session.user.createdAt.toISOString() : new Date().toISOString(),
+            createdAt: session.user.created_at ? new Date(session.user.created_at).toISOString() : new Date().toISOString(),
           };
           setUser(userData);
         }

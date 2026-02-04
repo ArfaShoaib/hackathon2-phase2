@@ -158,7 +158,12 @@ export const getSession = async (): Promise<{ data?: { user: User } } | { error:
 export const isAuthenticated = async (): Promise<boolean> => {
   try {
     const session = await getSession();
-    return !!session?.data?.user;
+    // Check if session has an error property (indicating failure)
+    if ('error' in session) {
+      return false;
+    }
+    // Otherwise, check if user exists in data
+    return !!(session.data?.user);
   } catch (error) {
     console.error("Error checking authentication:", error);
     return false;
@@ -169,7 +174,12 @@ export const isAuthenticated = async (): Promise<boolean> => {
 export const getUserSession = async () => {
   try {
     const session = await getSession();
-    return session?.data;
+    // Check if session has an error property (indicating failure)
+    if ('error' in session) {
+      return null;
+    }
+    // Otherwise, return the data
+    return session.data;
   } catch (error) {
     console.error("Error getting user session:", error);
     return null;

@@ -32,7 +32,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const checkAuthStatus = async () => {
       try {
         const sessionResult = await getSession();
-        if (sessionResult.data?.user) {
+        // Check if session has an error property (indicating failure)
+        if ('error' in sessionResult) {
+          // Session retrieval failed, user is not authenticated
+          setIsAuthenticated(false);
+          setUser(null);
+          setUserId(null);
+        } else if (sessionResult.data?.user) {
           // User is authenticated
           setIsAuthenticated(true);
           setUser(sessionResult.data.user);
@@ -109,6 +115,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // If userId is not in state, try to get it from the session
     try {
       const sessionResult = await getSession();
+      // Check if session has an error property (indicating failure)
+      if ('error' in sessionResult) {
+        return null;
+      }
       if (sessionResult.data?.user?.id) {
         const idString = sessionResult.data.user.id.toString();
         setUserId(idString); // Update state for future use
