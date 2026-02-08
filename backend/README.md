@@ -1,3 +1,19 @@
+---
+title: FastAPI Backend
+emoji: 🚀
+colorFrom: blue
+colorTo: purple
+sdk: docker
+pinned: false
+---
+
+This is a FastAPI backend deployed on Hugging Face Spaces using Docker.
+
+
+
+
+
+
 # Todo Backend API
 
 A complete, production-ready, secure Python FastAPI backend for a multi-user Todo application. The backend provides user registration with secure password hashing, JWT token verification for Better Auth frontend integration, and comprehensive task CRUD operations with strict ownership enforcement.
